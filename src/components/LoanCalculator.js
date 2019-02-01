@@ -8,22 +8,21 @@ class LoanCalculator extends Component {
     years: '',
     monthlyPayment: '',
     totalPayment: '',
-    totalInterest: ''
+    totalInterest: '',
+    isShowResults: false,
+    errors: false
   };
 
   handleAmountInput = e => {
     this.setState({ amount: e.target.value });
-    console.log('Amount Input:', this.state.amount);
   };
 
   handleInterestInput = e => {
     this.setState({ interest: e.target.value });
-    console.log('Interest Input:', this.state.amount);
   };
 
   handleYearsInput = e => {
     this.setState({ years: e.target.value });
-    console.log('Years Input:', this.state.amount);
   };
 
   calculateResults = e => {
@@ -31,9 +30,6 @@ class LoanCalculator extends Component {
     const amount = this.state.amount;
     const interest = this.state.interest;
     const years = this.state.years;
-    // const monthlyPayment = this.state.monthlyPayment;
-    // const totalPayment = this.state.totalPayment;
-    // const totalInterest = this.state.totalInterest;
 
     const principal = parseFloat(amount);
     const calculatedInterest = parseFloat(interest) / 100 / 12;
@@ -49,6 +45,14 @@ class LoanCalculator extends Component {
         totalInterest: (monthly * calculatedPayments - principal).toFixed(2)
       });
     }
+    if (amount === '' || interest === '' || years === '') {
+      this.setState({ errors: true });
+      setTimeout(() => {
+        this.setState({ errors: false });
+      }, 3000);
+    } else {
+      this.setState({ isShowResults: true });
+    }
   };
 
   render() {
@@ -61,6 +65,8 @@ class LoanCalculator extends Component {
           monthlyPayment={this.state.monthlyPayment}
           totalPayment={this.state.totalPayment}
           totalInterest={this.state.totalInterest}
+          isShowResults={this.state.isShowResults}
+          errors={this.state.errors}
           handleAmountInput={this.handleAmountInput}
           handleInterestInput={this.handleInterestInput}
           handleYearsInput={this.handleYearsInput}

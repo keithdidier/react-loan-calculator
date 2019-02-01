@@ -5,12 +5,11 @@ class Form extends Component {
 
   render() {
     const {
-      amount,
-      interest,
-      years,
       monthlyPayment,
       totalPayment,
       totalInterest,
+      isShowResults,
+      errors,
       handleAmountInput,
       handleInterestInput,
       handleYearsInput,
@@ -22,6 +21,11 @@ class Form extends Component {
           <div className="col-md-6 mx-auto">
             <div className="card card-body text-center mt-5">
               <h1 className="heading display-5 pb-3">Loan Calculator</h1>
+              {errors === true && (
+                <div className="alert alert-danger" role="alert">
+                  Please check your numbers
+                </div>
+              )}
               <form id="loan-form">
                 <div className="form-group">
                   <div className="input-group mb-3">
@@ -61,54 +65,55 @@ class Form extends Component {
                     onClick={calculateResults}
                     type="submit"
                     value="Calculate"
-                    className="btn btn-dark btn-block"
+                    className="btn btn-primary btn-block"
                   />
                 </div>
               </form>
-              <div id="loading">
-                <img src="img/loading.gif" alt="" />
-              </div>
-              <div id="results" className="pt-4">
-                <h5>Results</h5>
-                <div className="form-group">
-                  <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text">Monthly Payment</span>
+              {isShowResults && (
+                <div id="results" className="pt-4">
+                  <h5>Results</h5>
+                  <div className="form-group">
+                    <div className="input-group mb-3">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">
+                          Monthly Payment
+                        </span>
+                      </div>
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="monthly-payment"
+                        value={monthlyPayment}
+                        disabled
+                      />
                     </div>
-                    <input
-                      type="number"
-                      className="form-control"
-                      id="monthly-payment"
-                      value={monthlyPayment}
-                      disabled
-                    />
-                  </div>
-                  <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text">Total Payment</span>
+                    <div className="input-group mb-3">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">Total Payment</span>
+                      </div>
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="total-payment"
+                        value={totalPayment}
+                        disabled
+                      />
                     </div>
-                    <input
-                      type="number"
-                      className="form-control"
-                      id="total-payment"
-                      value={totalPayment}
-                      disabled
-                    />
-                  </div>
-                  <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text">Total Interest</span>
+                    <div className="input-group mb-3">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">Total Interest</span>
+                      </div>
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="total-interest"
+                        value={totalInterest}
+                        disabled
+                      />
                     </div>
-                    <input
-                      type="number"
-                      className="form-control"
-                      id="total-interest"
-                      value={totalInterest}
-                      disabled
-                    />
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
