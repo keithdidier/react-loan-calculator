@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "react-loan-calculator": "react-loan-calculator",
+    "default": "react-loan-calculator"
+  }
+}
